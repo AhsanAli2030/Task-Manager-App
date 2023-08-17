@@ -1,0 +1,60 @@
+MDFloatLayout:
+    
+    MDLabel:
+        id:task_label
+        markup:True
+        text: "[b][u][size=48]Task Manager[/b][/size][/u]"
+        halign:"center"
+        pos_hint: {"y":0.45}
+        color:255/255, 87/255, 51/255,0.9
+        
+
+    ScrollView:        # this is a widget which is used when items are greater then we can scroll to see
+        pos_hint:{"center_x":0.5,"center_y":0.5}
+        size_hint: 0.9, 0.8
+        MDList:       # this is widget which we will use to use list of content
+            id:container
+    
+    MDFloatingActionButton:
+        icon:"plus-thick"
+        pos_hint:{"center_x":0.5,"y":0.04}
+        elevation_normal:12
+        on_release:app.show_task_function()
+
+<DialogContent>
+    orientation: 'vertical'
+    size_hint:1,None
+    height:"130dp"
+
+    GridLayout:
+        rows:1
+
+        MDTextField:
+            id:task_text
+            hint_text:"Add text ..."
+            pos_hint:{"center_y":0.4}
+            max_text_length:50
+            on_text_validate:(app.add_task(task_text,task_date),app.close_dialog())
+        MDIconButton:
+            icon:"calendar"
+            on_release:root.show_date_picker()
+
+    MDLabel:
+        id:date_text
+        spacing:"10dp"
+    BoxLayout:
+        orientation:'horizontal'
+        spacing:"10dp"
+        MDRaisedButton:
+            text:"Save"
+            on_release:(app.add_task(task_text,task_date),app.close_dialog())
+            
+        MDRaisedButton:
+            text:"Cancel"
+            on_release:(app.close_dialog())
+            
+
+        
+
+
+        
